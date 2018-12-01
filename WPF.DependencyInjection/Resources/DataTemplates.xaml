@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:m="clr-namespace:WPF.DependencyInjection.Models"
+                    xmlns:local="clr-namespace:WPF.DependencyInjection.Resources">
+
+    <DataTemplate x:Key="CustomerTemplate" DataType="{x:Type m:Customer}">
+        <StackPanel Orientation="Horizontal">
+            <Label Content="{Binding FirstName}" />
+            <Label Content="{Binding LastName}" />
+        </StackPanel>
+    </DataTemplate>
+    
+</ResourceDictionary>
