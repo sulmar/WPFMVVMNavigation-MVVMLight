@@ -2,6 +2,7 @@
 using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace WPF.DependencyInjection.ViewModels
             SimpleIoc.Default.Register<Page1ViewModel>();
             SimpleIoc.Default.Register<CustomersViewModel>();
             SimpleIoc.Default.Register<ICustomersService, CustomersService>();
-            SimpleIoc.Default.Register<IFrameNavigationService, FrameNavigationService>();
+            SimpleIoc.Default.Register<INavigationService, NavigationService>();
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
@@ -53,7 +54,7 @@ namespace WPF.DependencyInjection.ViewModels
             var container = new UnityContainer();
             container.RegisterType<CustomersViewModel>(_mainWindowLifetimeManager);
             container.RegisterType<ICustomersService, CustomersService>();
-            container.RegisterSingleton<IFrameNavigationService, FrameNavigationService>();
+            container.RegisterSingleton<INavigationService, NavigationService>();
 
             // Set the service locator to an UnityServiceLocator.
             ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(container));
@@ -68,7 +69,7 @@ namespace WPF.DependencyInjection.ViewModels
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<FrameNavigationService>().As<IFrameNavigationService>().SingleInstance();
+            builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             builder.RegisterType<CustomersService>().As<ICustomersService>();
 
             builder.RegisterType<ShellViewModel>();

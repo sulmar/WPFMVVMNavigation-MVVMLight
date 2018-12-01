@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Views;
 using System.Collections.Generic;
 using System.Windows.Input;
 using WPF.DependencyInjection.Common;
@@ -10,11 +12,11 @@ namespace WPF.DependencyInjection.ViewModels
     public class CustomersViewModel : ViewModelBase
     {
         private readonly ICustomersService customersService;
-        private readonly IFrameNavigationService navigationService;
+        private readonly INavigationService navigationService;
 
         public Customer SelectedCustomer { get; set; }
 
-        public CustomersViewModel(IFrameNavigationService navigationService, ICustomersService customersService)
+        public CustomersViewModel(INavigationService navigationService, ICustomersService customersService)
         {
             this.navigationService = navigationService;
             this.customersService = customersService;
@@ -37,13 +39,13 @@ namespace WPF.DependencyInjection.ViewModels
         {
             get { return _customers; }
             set { _customers = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
             }
         }
 
         private ICommand _ShowPage1Command;
 
-        public ICommand ShowPage1Command => _ShowPage1Command ?? (_ShowPage1Command = new RelayCommand(() => navigationService.Navigate("Page1", SelectedCustomer)));
+        public ICommand ShowPage1Command => _ShowPage1Command ?? (_ShowPage1Command = new RelayCommand(() => navigationService.NavigateTo("Page1", SelectedCustomer)));
     }
 }

@@ -1,17 +1,18 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace WPF.DependencyInjection.Common
 {
-    public class FrameNavigationService : IFrameNavigationService
+    public class NavigationService : INavigationService
     {
-        public object Parameter { get; private set; }       
+        public object Parameter { get; private set; }
+
+        public string CurrentPageKey { get; private set; }
 
         public void GoBack()
         {
@@ -40,8 +41,6 @@ namespace WPF.DependencyInjection.Common
 
         private static Frame GetFrame()
         {
-            // return GetDescendantFromName(Application.Current.MainWindow, "MainFrame") as Frame;
-
             return RecurseChildren<Frame>(Application.Current.MainWindow).FirstOrDefault(f=>f.Name== "MainFrame");
         }
 
@@ -67,7 +66,17 @@ namespace WPF.DependencyInjection.Common
             }
         }
 
+        public void NavigateTo(string pageKey)
+        {
+            CurrentPageKey = pageKey;
+            Navigate(pageKey);
+        }
 
-      
+        public void NavigateTo(string pageKey, object parameter)
+        {
+            CurrentPageKey = pageKey;
+
+            Navigate(pageKey, parameter);
+        }
     }
 }

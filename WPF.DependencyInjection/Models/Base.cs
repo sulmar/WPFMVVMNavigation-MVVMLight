@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace WPF.DependencyInjection.Models
 {
-    public abstract class Base : INotifyPropertyChanged
+    public abstract class Base : ObservableObject
     {
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
